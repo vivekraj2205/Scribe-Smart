@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: rgb(232, 232, 232);
+}
+
+header {
+    background-color: #630000;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 2.5rem;
+}
+
+h1, h2 {
+    margin: 10px 0;
+}
+
+.contact-info, .contact-form {
+    border: 2.5px solid #010101;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 2.5rem;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 10px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 15px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+</style>
+<body>
+    <header>
+        <h1>Scribe Smart</h1>
+    </header>
+
+    <section class="contact-info">
+        <h2>Contact Information</h2>
+        <ul>
+            <li><i class="fas fa-envelope"></i> am.amrita.edu</li>
+            <li><i class="fas fa-phone"></i> +91 0476 280 5012</li>
+            <li><i class="fas fa-map-marker-alt"></i> Amrita University, Amritapuri, kerala</li>
+        </ul>
+    </section>
+
+    <section class="contact-form">
+        <h2>Send Us a Message</h2>
+        <form action="#">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Amrita Vishwa Vidyapeetham</p>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit_code.js" crossorigin="anonymous"></script>
+</body>
+</html>
