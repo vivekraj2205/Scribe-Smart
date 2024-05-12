@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Question Paper</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: url(blue.jpg) no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            
+        }
+        .container {
+            background: transparent;
+            width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(9px);
+            border-radius: 12px;
+            padding: 30px 40px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 36px;
+            color: #2f2f2f;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            color: #880c0c;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        h4 {
+            text-align: center;
+            margin-top: 10px;
+            list-style-type: circle;
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .instructions {
+            text-align: center;
+        }
+        .instructions ul {
+            padding: 0;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 800px; /* Adjust according to your design */
+            list-style-type: circle;
+        }
+        .instructions h2 {
+            margin-top: 10px;
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            color: #570000;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .instructions li {
+            font-size: 18px;
+            font-family: 'Arial', sans-serif;
+            color: #001f22;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        form {
+            background: transparent;
+            width: 420px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px solid rgba(255, 255, 255, .2);
+            backdrop-filter: blur(15px);
+            border-radius: 12px;
+            padding: 30px 40px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        textarea {
+            display: none; /* Hide the textarea */
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-button {
+            background-color: #00ba3b; /* Blue background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 15px 32px; /* Some padding */
+            text-align: center; /* Centered text */
+            text-decoration: none; /* Remove underline */
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer; /* Mouse pointer on hover */
+            border-radius: 12px; /* Rounded corners */
+            position: relative;
+            bottom: 20px;
+            left: 20px;
+        }
+        
+        .OCR_button{
+                background-color: #00ba3b; /* Blue background */
+                border: none; /* Remove borders */
+                color: white; /* White text */
+                padding: 15px 32px; /* Some padding */
+                text-align: center; /* Centered text */
+                text-decoration: none; /* Remove underline */
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer; /* Mouse pointer on hover */
+                border-radius: 12px; /* Rounded corners */
+                position: absolute;
+                bottom: -1125px;
+                right: 20px; /* Modified code */
+            }
+        
+    
+    
+        button[type="submit"]::before {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <div class="container">
+        <h1>This innovative system allows you to navigate and interact with the exam interface using voice commands. </br>Below are the commands and instructions for using the portal effectively: </h1>
+        <div class="instructions">
+        <h2>1. Getting Started:</h2>
+        <ul>
+            <li>Upon entering the exam page, the recording will start automatically.</li>
+            <li>Voice commands are activated by simply saying them aloud.</li>
+            <li>Speak clearly and at a moderate pace.</li>
+        </ul>
+    
+        <h2>2. Voice Commands:</h2>
+        <ul>
+            <li><b>Select Question (number):</b></li>
+            <li>Usage: Select the question number you want to answer.</li>
+            <li>Example: "Select Question 3" will move the cursor to Question 3.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Stop over Finish:</b></li>
+            <li>Usage: Stop answering a question and finish recording.</li>
+            <li>Example: Saying "Stop" or "Finish" will stop answering and finish recording for the current question..</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Edit Question (number):</b></li>
+            <li>Usage: Edit the answer for a specific question.</li>
+            <li>Example: "Edit Question 5" will enter edit mode for Question 5.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Delete All:</b></li>
+            <li>Usage: Delete the entire answer for a particular question.</li>
+            <li>Example: Saying "Delete All" will delete the whole answer for the current question.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Move cursor next:</b></li>
+            <li>Usage: while in edit mode, cursor moves to the next sentence</li>
+            <li>Example:On saying "Move Cursor Next", if the cursor is at the beginning of the first sentence, the cursor will be moved to the beginning of the next sentence.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Move cursor back:</b></li>
+            <li>Usage: While in edit mode, cursor moves to the previous sentence.</li>
+            <li>Example:On Saying "Move cursor back", if the cursor is at the beginning of the second sentence, the cursor will be moved back to the beginning of the previous sentence.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Select This Sentence:</b></li>
+            <li>Usage: While in edit mode, It Chooses the sentence where the cursor is located.</li>
+            <li>Example:If the cursor is located in the 1st sentence, then upon saying "Select This Sentence" will select the 1st sentence.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Highlight Text:</b></li>
+            <li>Usage: Highlight a specific portion of text.</li>
+            <li>Example: On Saying "Highlight Text" will Bold the selected text.</li>
+        </ul>
+    </br>
+        
+        <ul>
+            <li><b>Delete Sentence:</b></li>
+            <li>Usage: Delete the sentence where the cursor is located.</li>
+            <li>Example: Saying "Delete Sentence" will delete the sentence where the cursor is located.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Add text:</b></li>
+            <li>Usage: Add text to the answer for a specific question.</li>
+            <li>Example: If you say "Add Text" and then say "This is a test", the text "This is a test" will be added to the answer where cursor is located.</li>
+        </ul>
+    </br>
+        <ul>
+            <li><b>Save and Exit:</b></li>
+            <li>Usage: Save the changes and exit the edit mode.</li>
+            <li>Example: Saying "Save and Exit" will save the changes and exit the edit mode.</li>
+        </ul>
+    </br>
+        <ul>
+            <li style="color: #e6ba62; font-weight: bold;">Speak button:</li>
+            <li>Usage: The question is read out loud by the program.</li>
+            <li>Example: Clicking on the "Speak" button will read out the question.</li>
+        </ul>
+    </br>
+        <ul>
+            <li style="color: #e6ba62; font-weight: bold;">Read Text button:</li>
+            <li>Usage: The answer is read out loud by the program.</li>
+            <li>Example: Clicking on the "Read Text" button will read out the answer.</li>
+        </ul>
+    </div>
+    </div>
+    
+    <h2>Upload Question Paper</h2>
+    <form id="uploadForm" action="#">
+        <input type="file" id="fileInput" accept=".txt" required>
+        <button type="submit">Upload</button>
+    </form>
+    <a href="login.html">
+        <button class="login-button">Login</button>
+    </a>
+    <a href="https://www.onlineocr.net/" target="_blank">
+        <button class="OCR_button">OCR</button>
+    </a>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadForm = document.getElementById('uploadForm');
+            const fileInput = document.getElementById('fileInput');
+    
+            uploadForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+    
+                const file = fileInput.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const contents = event.target.result;
+                        const questions = contents.split('\n').filter(question => question.trim() !== ''); // Split the contents into individual questions
+                        
+                        console.log(questions);
+                        // Redirect to the index page after successful upload
+                        window.location.href = `index.html?file=${encodeURIComponent(JSON.stringify(questions))}`;
+                    };
+                    reader.readAsText(file);
+                } else {
+                    alert('Please select a file to upload.');
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

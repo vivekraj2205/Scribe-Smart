@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Scribe Smart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<style>
+    body {
+        
+        font-family: Arial, sans-serif;
+        background-image: url("blue.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        margin: 0;
+        padding: 20px; /* Add some padding for better layout */
+        position: relative;
+        display: flex; /* Make body a flex container */
+    }
+    .main-content {
+        flex: 60%; /* 70% width for main content */
+        padding-right: 20px; /* Add some space between main content and instructions */
+        max-width: calc(100% - 35% - 40px); /* Adjust maximum width to accommodate instructions container */
+    }
+    
+    
+    /*
+    .instructions {
+        position: fixed; 
+        flex: 30%; 
+        height: 100vh;
+        padding-left: 20px; 
+        display: block;
+        right: 30px;
+        padding: 20px; 
+        background: transparent;
+        border-radius: 5px;
+        border: 2px solid rgb(0, 0, 0);
+        backdrop-filter: blur(5px);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    }*/
+    
+    .instructions {
+        position: fixed; /* Set position to fixed */
+        top: 20px; /* Adjust top position */
+        right: 20px; /* Adjust right position */
+        width: 30%; /* Set width */
+        height: calc(100vh - 40px); /* Set height to fill remaining viewport height */
+        padding: 20px;
+        background: transparent;
+        border-radius: 5px;
+        border: 2px solid rgb(0, 0, 0);
+        backdrop-filter: blur(5px);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        overflow-y: auto; /* Add overflow-y to enable scrolling if content exceeds container height */
+        font-size: 12px; /* Decrease font size */
+    }
+    
+    
+    .instructions h2 {
+        margin-top: 0; /* Remove top margin for heading */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+        font-size: 16px; /* Decrease font size */
+    }
+    
+    .instructions ul {
+        list-style-type: none; /* Remove default bullet points */
+        padding-left: 0; /* Remove left padding for better alignment */
+    }
+    
+    .instructions ul li {
+        margin-bottom: 8px; /* Add some space between list items */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+        font-size: 11px; /* Decrease font size */
+    }
+    
+    .instructions ul li b {
+        font-weight: bold; /* Make command names bold */
+        color: #3a0101fa; /* Set command names color */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+        font-size: 14px; /* Decrease font size */
+    }
+    
+    .instructions ul li:last-child {
+        margin-bottom: 0; /* Remove margin for the last list item */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow */
+        font-size: 14px; /* Decrease font size */
+    }
+    @media only screen and (max-width: 600px) {
+        .main-content {
+            flex-direction: column; /* Change flex direction to column for smaller screens */
+        }
+    
+        .instructions {
+            flex: 100%; /* Full width for instructions on smaller screens */
+            margin-top: 20px; /* Add some space between main content and instructions */
+        }
+    }
+    
+    /* Your existing styles go here... */
+    .upload-button {
+        top: 20px;
+        left: 15px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #FF0000; /* Change the background color to red */
+        color: #010d01;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .contact-us-button {
+        position: absolute;
+        padding: 12px 25px;
+        left: calc(50% - 01px); /* Center the button horizontally */
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #644e7d;
+        color: #010d01;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        right: 550px;
+        bottom: 20px;
+    }
+    
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    
+    h1 {
+        top: 0;
+        color: #201c1c;
+        text-align: center;
+        font-size: 3.8rem;
+        margin: 0 10px 0 0;
+        font-style: italic;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial Black", sans-serif;
+    }
+    
+    h3 {
+        color: #201c1c;
+        text-align: center;
+        font-size: 1.8rem;
+        margin: 0 10px 0 0;
+        font-style: italic;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-family: "Arial", sans-serif;
+    }
+           
+    .logo {
+        /* Add your logo image here (optional) */
+        width: 100px;
+        height: auto;
+    }
+    
+    /* Rest of the CSS code */
+    .question-container {
+        margin-top: 80px; /* Adjust margin to account for fixed header */
+        width: 80%; /* Wider container for better layout */
+        max-width: 1000px; /* Set a maximum width for responsiveness */
+        padding: 0px; /* Consistent padding throughout */
+        box-sizing: border-box; /* Include padding in the width */
+        background-color: transparent; /* Transparent background for questions */
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgb(0, 0, 0); /* Subtle shadow for questions */
+        backdrop-filter: blur(10px); /* Add background filter blur */
+    }
+    
+    .question {
+        margin-bottom: 20px;
+        padding: 20px; /* Consistent padding for better readability */
+        border: 2px solid #005698; /* Add a border to make the question stand out */
+        border-radius: 5px; /* Add rounded corners for a more modern look */
+        background-color: rgba(172, 208, 255, 0.486); /* Transparent background color for better contrast */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    }
+    
+    .question:last-child {
+        margin-bottom: 1in; /* Add 1 inch space after the last question */
+    }
+    
+    
+    .question-heading {
+        font-size: 1.5rem; /* Larger question heading size */
+        margin-bottom: 10px;
+        font-weight: bold; /* Add bold weight for emphasis */
+        color: #005698; /* Change the heading color to a darker shade of blue */
+    }
+    
+    .question-text {
+        font-size: 28px; /* Slightly larger question text size */
+        margin-bottom: 15px; /* Consistent spacing */
+        color: #201c1c; /* Change the text color to a darker shade of gray */
+    }
+    
+    button {
+        position: relative;
+        padding: 16px;
+        background: linear-gradient(0deg, #fcfcfc 0%, #f5f5f5 100%);
+        border: 6px solid transparent;
+        border-radius: 16px;
+        background-clip: padding-box;
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.5), 1px 3px 3px 2px #fff, 0 0 0 6px #ECECEC;
+        border-radius: 16px;
+        font-family: "Inter", sans-serif;
+        font-size: 18px;
+        line-height: 1;
+        transition: border 0.1s ease-in-out, padding 0.1s ease-in-out, margin 0.1s ease-in-out;
+    }
+    
+    button:after {
+        position: absolute;
+        top: -6px;
+        bottom: -6px;
+        left: -6px;
+        right: -6px;
+        background: linear-gradient(#fffbfb, #124e7b);
+        content: "";
+        z-index: -1;
+        border-radius: 16px;
+    }
+    
+    button:hover {
+        border: 2px solid transparent;
+        background-image: linear-gradient(180deg, #e7e7e7 0%, #cdbdbd 100%);
+        box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.35), 0 0 0 6px #ffffff;
+        padding: 20px;
+    }
+    
+    button:active {
+      border-top: 1px solid transparent;
+    }
+    .recording-text {
+        width: 100%; /* Full width */
+        max-height: 300px; /* Maximum height */
+        resize: none; /* Prevent resizing */
+        overflow-y: auto; /* Enable vertical scrollbar when needed */
+        margin-top: 10px; /* Consistent margin */
+        margin-bottom: 10px; /* Consistent margin */
+        font-size: 16px; /* Adjust recording text size */
+        border: 3px solid #040000; /* Add a thin border for definition */
+        padding: 5px; /* Add some padding */
+        background-color: #9dcce1; /* White background color */
+        border-radius: 0.5rem; /* Slightly rounded corners */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+        font-family: "Arial", sans-serif; /* Change font family */
+    }
+    
+    /* style for speak button */
+    .speak-button {
+        padding: 10px 15px; /* Increase button size for better click target */
+        font-size: 1rem;
+        font-weight: bold; /* Add bold weight for emphasis */
+        background-color: #005698; /* Blue button color */
+        color: #010d01;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .read-button{
+        padding: 10px 15px; /* Increase button size for better click target */
+        font-size: 1rem;
+        font-weight: bold; /* Add bold weight for emphasis */
+        background-color: #005698; /* Blue button color */
+        color: #010d01;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+    }
+    /* style for Listen button */
+    .listen-button {
+        padding: 10px 15px; /* Increase button size for better click target */
+        font-size: 1rem;
+        font-weight: bold; /* Add bold weight for emphasis */
+        background-color: #005698; /* Blue button color */
+        color: #010d01;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    #status-ind {
+        position: fixed;
+        bottom: 0   ;
+        left: 500px;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 50px;
+        background-color: #005698;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 5px;
+        font-family: "Arial", sans-serif;
+        color: #000000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .submit-button {
+        position: absolute;
+        padding: 12px 25px;
+        
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: #644e7d;
+        color: #010d01;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        left: calc(5%); /* Adjust the left property */
+        bottom: 20px;
+    }
+    
+    
+    
+    </style>
+<body>
+    <!-- Main Content Container (70%) -->
+    <div class="main-content">
+        <a href="upload.html">
+            <button class="upload-button">Upload</button>
+        </a>
+        <!-- Heading -->
+        <h1>Scribe Smart</h1>
+        <h3>your choice for a better future</h3>
+        <!-- Container for questions -->
+        <div id="questions">
+            <!-- Loop through each question -->
+        </div>
+        <script>
+            const downloadBtn = document.getElementById('download-pdf-btn');
+            downloadBtn.addEventListener('click', downloadPDF);
+        </script>
+        
+        <a href="contactUS.html">
+            <button class="contact-us-button">Contact Us</button>
+        </a>
+        <div id="status-ind">Current Operation: Idle</div>
+    </div>
+
+    <!-- Instructions Container (30%) -->
+    <div class="instructions">
+        <h2>Voice Commands:</h2>
+        <ul>
+            <li><b>Select Question (number):</b></li>
+            <li>Example: "Select Question 3" will move the cursor to Question 3.</li>
+        </ul>
+        <ul>
+            <li><b>Stop over Finish:</b></li>
+            <li>Example: Saying "Stop" or "Finish" will stop answering and finish recording for the current question..</li>
+        </ul>
+        <ul>
+            <li><b>Edit Question (number):</b></li>
+            <li>Example: "Edit Question 5" will enter edit mode for Question 5.</li>
+        </ul>
+        <ul>
+            <li><b>Move Cursor Next:</b></li>
+            <li>Example: Saying "Move Cursor Next" will select the 1st sentence in the answer sheet.</li>
+        </ul>
+        <ul>
+            <li><b>Move Cursor Back:</b></li>
+            <li>Example: Saying "Move Cursor Back" will select the previous sentence in the answer sheet.</li>
+        </ul>
+        <ul>
+            <li><b>Add text:</b></li>
+            <li>Example: Saying "Add Text" will add the text at the cursor position.</li>
+        </ul>
+        <ul>
+            <li><b>Highlight Text:</b></li>
+            <li>Example: Saying "Highlight Text" will highlight the selected text.</li>
+        </ul>
+        <ul>
+            <li><b>Delete All:</b></li>
+            <li>Example: Saying "Delete All" will delete the whole answer for the current question.</li>
+        </ul>
+        <ul>
+            <li><b>Delete sentence:</b></li>
+            <li>Example: Saying "Delete Sentence" will delete the selected sentence.</li>
+       	    <li><b>Note:</b> The sentence must be selected before using this command.</li>
+        </ul>
+        
+        <ul>
+            <li><b>Save and Exit:</b></li>
+            <li>Example: Saying "Save and Exit" will save the changes and stops the recording.</li>
+        </ul>
+    </div>
+    
+    <script src="custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    
+</body>
+</html>
